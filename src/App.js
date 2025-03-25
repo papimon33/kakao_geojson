@@ -96,11 +96,11 @@ function App() {
       })
     };
 
-    const blob = new Blob([JSON.stringify(resultGeoJson, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(resultGeoJson, null, 2)], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'result.geojson';
+    a.download = 'result.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
