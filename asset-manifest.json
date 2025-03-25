@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/kakao_geojson/static/css/main.e6c13ad2.css",
-    "main.js": "/kakao_geojson/static/js/main.31234b71.js",
+    "main.js": "/kakao_geojson/static/js/main.717b86a1.js",
     "static/js/453.b6018862.chunk.js": "/kakao_geojson/static/js/453.b6018862.chunk.js",
     "index.html": "/kakao_geojson/index.html",
     "main.e6c13ad2.css.map": "/kakao_geojson/static/css/main.e6c13ad2.css.map",
-    "main.31234b71.js.map": "/kakao_geojson/static/js/main.31234b71.js.map",
+    "main.717b86a1.js.map": "/kakao_geojson/static/js/main.717b86a1.js.map",
     "453.b6018862.chunk.js.map": "/kakao_geojson/static/js/453.b6018862.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.31234b71.js"
+    "static/js/main.717b86a1.js"
   ]
 }
