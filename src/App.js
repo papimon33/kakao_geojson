@@ -74,6 +74,17 @@ function App() {
   const handleMerge = () => {
     if (files.length === 0) return;
 
+    const keyMappings = {
+      'created_da': 'created_date',
+      'category_c': 'category_code',
+      'primary_ca': 'primary_category',
+      'secondary_': 'secondary_category',
+      'tertiary_c': 'tertiary_category',
+      'road_addre': 'road_address',
+      'opening_ye': 'opening_year',
+      'business_h': 'business_hours'
+    };
+
     const mergedFeatures = files.reduce((acc, file) => {
       return [...acc, ...file.content.features];
     }, []);
@@ -87,6 +98,18 @@ function App() {
           newFeature.id = feature.properties.id;
           const { id, ...restProperties } = feature.properties;
           feature.properties = restProperties;
+        }
+
+        if (feature.properties) {
+          const newProperties = {};
+          Object.entries(feature.properties).forEach(([key, value]) => {
+            const newKey = Object.entries(keyMappings).find(([oldKey, _]) => 
+              key.startsWith(oldKey)
+            );
+            
+            newProperties[newKey ? newKey[1] : key] = value;
+          });
+          feature.properties = newProperties;
         }
 
         return {
