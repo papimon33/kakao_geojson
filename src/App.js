@@ -30,6 +30,7 @@ const MergeButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin: 20px;
+  width: calc(100% - 40px);  // margin 20px를 고려하여 계산
   
   &:hover {
     background-color: #45a049;
