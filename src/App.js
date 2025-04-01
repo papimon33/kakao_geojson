@@ -84,6 +84,7 @@ function App() {
       'road_addre': 'road_address',
       'opening_ye': 'opening_year',
       'business_h': 'business_hours'
+      "store_numb": "store_number"
     };
 
     const mergedFeatures = files.reduce((acc, file) => {
