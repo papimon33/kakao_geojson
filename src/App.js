@@ -49,12 +49,45 @@ function App() {
     const newFiles = Array.from(event.dataTransfer.files);
     const jsonFiles = newFiles.filter(file => file.name.endsWith('.json') || file.name.endsWith('.geojson'));
     
+    // 파일 이름에서 data_type 확인
+    const isValidFile = jsonFiles.some(file => {
+      const fileName = file.name.toLowerCase();
+      return fileName.includes('_floor_') || 
+             fileName.includes('_sector_') || 
+             fileName.includes('_poi_');
+    });
+
+    if (!isValidFile) {
+      alert('최소 하나의 파일 이름에는 floor, sector, poi 중 하나가 포함되어야 합니다.');
+      return;
+    }
+    
     const filesWithContent = await Promise.all(
       jsonFiles.map(async (file) => {
         const content = await file.text();
+        const parsedContent = JSON.parse(content);
+        
+        // 파일 이름에 따라 data_type 결정
+        let dataType = null;
+        const fileName = file.name.toLowerCase();
+        if (fileName.includes('_floor_')) dataType = 'floor';
+        else if (fileName.includes('_sector_')) dataType = 'sector';
+        else if (fileName.includes('_poi_')) dataType = 'poi';
+        
+        // 각 feature에 data_type 추가
+        if (dataType && parsedContent.features) {
+          parsedContent.features = parsedContent.features.map(feature => ({
+            ...feature,
+            properties: {
+              ...feature.properties,
+              data_type: dataType
+            }
+          }));
+        }
+
         return {
           name: file.name,
-          content: JSON.parse(content)
+          content: parsedContent
         };
       })
     );
@@ -86,6 +119,19 @@ function App() {
       'business_h': 'business_hours',
       "store_numb": "store_number"
     };
+
+    // 파일 유효성 재확인
+    const hasValidFileType = files.some(file => {
+      const fileName = file.name.toLowerCase();
+      return fileName.includes('_floor_') || 
+             fileName.includes('_sector_') || 
+             fileName.includes('_poi_');
+    });
+
+    if (!hasValidFileType) {
+      alert('최소 하나의 파일 이름에는 floor, sector, poi 중 하나가 포함되어야 합니다.');
+      return;
+    }
 
     const mergedFeatures = files.reduce((acc, file) => {
       return [...acc, ...file.content.features];
