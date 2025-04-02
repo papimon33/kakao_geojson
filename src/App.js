@@ -216,6 +216,15 @@ function App() {
       <MergeButton onClick={handleMerge}>
         결합
       </MergeButton>
+
+      <div style={{ 
+        textAlign: 'center', 
+        marginBottom: '20px',
+        color: '#666',
+        fontSize: '14px'
+      }}>
+        최근 업데이트: {new Date().toLocaleDateString('ko-KR')}
+      </div>
     </div>
   );
 }
