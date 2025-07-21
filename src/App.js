@@ -149,12 +149,22 @@ function App() {
         }
 
         if (feature.properties) {
+          const titleValue = feature.properties.title;
+          const categoryValue = feature.properties.category_c;
+
+          feature.properties.foreign_titles = [
+            { language_code: 'ko', title: titleValue },
+            { language_code: 'en', title: categoryValue }
+          ];
+
+          feature.properties.category_c = null;
+
           const newProperties = {};
           Object.entries(feature.properties).forEach(([key, value]) => {
-            const newKey = Object.entries(keyMappings).find(([oldKey, _]) => 
+            const newKey = Object.entries(keyMappings).find(([oldKey, _]) =>
               key.startsWith(oldKey)
             );
-            
+
             newProperties[newKey ? newKey[1] : key] = value;
           });
           feature.properties = newProperties;
