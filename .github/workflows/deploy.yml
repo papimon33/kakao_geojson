@@ -1,11 +1,11 @@
 name: Deploy React App to GitHub Pages
 
 on:
-  workflow_dispatch:        # 👉 수동 실행
+  workflow_dispatch:
   push:
-    branches: [main]        # 👉 main 브랜치에 push 될 때
+    branches: [main]
   pull_request:
-    branches: [main]        # 👉 main 브랜치로 PR이 머지될 때
+    branches: [main]
 
 jobs:
   deploy:
@@ -26,9 +26,15 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Set git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           allow_empty_commit: true
+          enable_jekyll: false
