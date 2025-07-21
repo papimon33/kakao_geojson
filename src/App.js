@@ -152,10 +152,12 @@ function App() {
           const titleValue = feature.properties.title;
           const categoryValue = feature.properties.category_c;
 
-          feature.properties.foreign_titles = [
-            { language_code: 'ko', title: titleValue },
-            { language_code: 'en', title: categoryValue }
-          ];
+          if (titleValue && categoryValue) {
+            feature.properties.foreign_titles = [
+              { language_code: 'ko', title: titleValue },
+              { language_code: 'en', title: categoryValue }
+            ];
+          }
 
           feature.properties.category_c = null;
 
